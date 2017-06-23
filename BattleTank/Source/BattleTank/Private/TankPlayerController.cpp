@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "BattleTank.h"
+#include "Tank.h"
 #include "TankPlayerController.h"
 
 
@@ -37,7 +38,7 @@ void ATankPlayerController::AimTowardsCrosshair()
 	FVector OutHitLocation;  // Out parameter
 	if (GetSightRayHitLocation(OutHitLocation)) { // line trace 
 		GetControlledTank()->AimAt(OutHitLocation);
-		// TODO: Controll tank to aim at this point
+		// TODO: Control tank to aim at this point
 	}
 }
 	
