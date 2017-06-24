@@ -21,4 +21,5 @@ private:
 
 	virtual void BeginPlay() override;
 	
+	float AcceptanceRadius = 3000; // How close the tank will get to player 
 };
