@@ -1,10 +1,24 @@
 // Created by JP Mackel 2017
 
 #include "BattleTank.h"
+#include "TankAimingComponent.h"
 #include "Tank.h"
 #include "TankPlayerController.h"
 
-
+void ATankPlayerController::BeginPlay()
+{
+	Super::BeginPlay();
+	auto AimingComponent = GetControlledTank()->FindComponentByClass<UTankAimingComponent>();
+	if (ensure(AimingComponent))
+	{
+		FoundAimingComponent(AimingComponent);
+	}
+	else
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Player Controlled -> No Aiming component found in begin play"))
+	}
+	
+}
 void ATankPlayerController::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
@@ -16,14 +30,11 @@ ATank* ATankPlayerController::GetControlledTank() const
 	return Cast<ATank>(GetPawn());
 }
 
-void ATankPlayerController::BeginPlay()
-{
-	Super::BeginPlay();
-}
+
 
 void ATankPlayerController::AimTowardsCrosshair()
 {
-	if (!GetControlledTank()) { return; }
+	if (!ensure(GetControlledTank())) { return; }
 
 	FVector OutHitLocation;  // Out parameter
 	if (GetSightRayHitLocation(OutHitLocation)) { // line trace 
@@ -42,7 +53,7 @@ bool ATankPlayerController::GetSightRayHitLocation(FVector& OutHitLocation) cons
 	
 	// "De-project" screen position of the crosshair to a look direction
 	FVector LookDirection;
-	if (GetLookDirection(ScreenLocation, LookDirection)) 
+	if (GetLookDirection(ScreenLocation, LookDirection))
 	{
 		GetLookVectorHitLocation(LookDirection, OutHitLocation);
 	}

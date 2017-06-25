@@ -32,7 +32,7 @@ void UTankMovementComponent::RequestDirectMove(const FVector& MoveVelocty, bool 
 // Move the tank forwards with +ve and backwards with -ve Throw.
 void UTankMovementComponent::IntendMoveForward(float Throw)
 {	
-	if (!LeftTrack || !RightTrack) { return; }
+	if (!ensure(LeftTrack && RightTrack)) { return; }
 	LeftTrack->SetThrottle(Throw);
 	RightTrack->SetThrottle(Throw);
 }
@@ -40,7 +40,7 @@ void UTankMovementComponent::IntendMoveForward(float Throw)
 // Turn the tank to the right with +ve and to the left with -ve Throw.
 void UTankMovementComponent::IntendTurnRight(float Throw)
 {	
-	if (!LeftTrack || !RightTrack) { return; }
+	if (!ensure(LeftTrack && RightTrack)) { return; }
 	LeftTrack->SetThrottle(Throw);
 	RightTrack->SetThrottle(-Throw);
 	//TODO Prevent double-speed due to dual control use
