@@ -5,11 +5,8 @@
 #include "AIController.h"
 #include "TankAIController.generated.h"
 
-// Forward declarations
-class ATank;
-
 /**
- * 
+ * Controls AI behaviour 
  */
 UCLASS()
 class BATTLETANK_API ATankAIController : public AAIController
