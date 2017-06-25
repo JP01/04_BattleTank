@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// Created by JP Mackel 2017
 
 #pragma once
 
@@ -15,13 +15,13 @@ class BATTLETANK_API UTankTrack : public UStaticMeshComponent
 
 public:
 	// -1 is max backwards movement and +1 is max forwards movement
-	UFUNCTION(BlueprintCallable, Category = Input)
+	UFUNCTION(BlueprintCallable, Category = "Input")
 	void SetThrottle(float Throttle);
 
 private:
 
 	// This is max force per track in Newtons
-	UPROPERTY(EditDefaultsOnly, Category = Setup)
+	UPROPERTY(EditDefaultsOnly, Category = "Setup")
 	float TrackMaxDrivingForce = 400000; // 40 tonne tank, 1g acceleration
 	
 };
