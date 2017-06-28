@@ -20,12 +20,14 @@ void ATankPlayerController::Tick(float DeltaTime)
 
 
 void ATankPlayerController::AimTowardsCrosshair()
-{
+{	
+	if (!GetPawn()) { return; } // e.g. if not possessing a tank, exit this method
 	auto AimingComponent = GetPawn()->FindComponentByClass<UTankAimingComponent>();
 	if (!ensure(AimingComponent)) { return; }
 
 	FVector OutHitLocation;  // Out parameter
-	if (GetSightRayHitLocation(OutHitLocation)) 
+	bool bGotHitLocation = GetSightRayHitLocation(OutHitLocation);
+	if (bGotHitLocation)
 	{ 
 		AimingComponent->AimAt(OutHitLocation);
 	}
@@ -43,10 +45,10 @@ bool ATankPlayerController::GetSightRayHitLocation(FVector& OutHitLocation) cons
 	FVector LookDirection;
 	if (GetLookDirection(ScreenLocation, LookDirection))
 	{
-		GetLookVectorHitLocation(LookDirection, OutHitLocation);
+		return GetLookVectorHitLocation(LookDirection, OutHitLocation);
 	}
 
-	return true;
+	return false;
 }
 
 bool ATankPlayerController::GetLookVectorHitLocation(FVector LookDirection, FVector& OutHitLocation) const
