@@ -18,10 +18,15 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category = "Setup") // Consider EditDefaultsOnly
 	float AcceptanceRadius = 8000; // How close the tank will get to player 1000 = 10 cm
 
+	UFUNCTION()
+	void OnPossessedTankDeath();
+
 private:
+	virtual void SetPawn(APawn* InPawn) override;
+
 	virtual void Tick(float DeltaTime) override;
 
-	virtual void BeginPlay() override;
 
+	virtual void BeginPlay() override;
 
 };
